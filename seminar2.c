@@ -44,7 +44,7 @@ void citireVector(const char* numeFisier, int** vector, int* dimensiune)
 		 fgets(buffer, 20, file);
 		 char* denumire = strtok(buffer ,"\n");
 		 produs.denumire = malloc(sizeof(char) * (strlen(denumire) + 1));
-		 strcpy(produs.denumire, &denumire);
+		 strcpy(produs.denumire, denumire);
 	 }
 	 return produs;
  }
