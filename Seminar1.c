@@ -15,7 +15,7 @@ void citireDeLaTastatura(int** vector, int* dimensiune)
 	printf("Dimensiune: ");
 	scanf("%d", dimensiune);
 
-	*vector = (int**)malloc(*dimensiune * sizeof(int*));
+	*vector = (int*)malloc(*dimensiune * sizeof(int*));
 
 	for(int i = 0; i < *dimensiune; i++)
 	{
