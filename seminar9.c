@@ -20,7 +20,7 @@ struct MaxHeap {
 };
 
 void afisarePrajitura(Prajitura prajitura) {
-	printf("\n %d Prajitura %s costa %f lei.", prajitura.prioritate,prajitura.denumire, prajitura.pret);
+	printf("\n %d Prajitura %s costa %f lei.", prajitura.prioritate, prajitura.denumire, prajitura.pret);
 }
 
 Prajitura initPrajitura(int prioritate, char* denumire, float pret) {
@@ -29,7 +29,7 @@ Prajitura initPrajitura(int prioritate, char* denumire, float pret) {
 	prajitura.denumire = (char*)malloc((strlen(denumire) + 1) * sizeof(char));
 	strcpy(prajitura.denumire, denumire);
 	prajitura.prioritate = prioritate;
-	
+
 	return prajitura;
 }
 
@@ -37,15 +37,6 @@ void afisareMaxHeap(MaxHeap maxHeap) {
 	for (int i = 0; i < maxHeap.dimensiune; i++) {
 		afisarePrajitura(maxHeap.vector[i]);
 	}
-}
-
-void extragere(MaxHeap* maxHeap, Prajitura* prajitura) {
-	*prajitura = initPrajitura(maxHeap->vector[0].prioritate, maxHeap->vector[0].denumire, maxHeap->vector[0].pret);
-	Prajitura aux = maxHeap->vector[0];
-	maxHeap->vector[0] = maxHeap->vector[maxHeap->dimensiune - 1];
-	maxHeap->vector[maxHeap->dimensiune - 1] = aux;
-	maxHeap->dimensiune--;
-	filtrare(*maxHeap, 0);
 }
 
 void filtrare(MaxHeap maxHeap, int index) {
@@ -69,6 +60,16 @@ void filtrare(MaxHeap maxHeap, int index) {
 		}
 	}
 }
+
+void extragere(MaxHeap* maxHeap, Prajitura* prajitura) {
+	*prajitura = initPrajitura(maxHeap->vector[0].prioritate, maxHeap->vector[0].denumire, maxHeap->vector[0].pret);
+	Prajitura aux = maxHeap->vector[0];
+	maxHeap->vector[0] = maxHeap->vector[maxHeap->dimensiune - 1];
+	maxHeap->vector[maxHeap->dimensiune - 1] = aux;
+	maxHeap->dimensiune--;
+	filtrare(*maxHeap, 0);
+}
+
 int main() {
 
 	MaxHeap maxHeap;
@@ -87,16 +88,21 @@ int main() {
 		filtrare(maxHeap, i);
 	}
 
-	printf("\n\nDupa filtrare: \n");
+	printf("\n\n Dupa filtrare: \n");
 
 	afisareMaxHeap(maxHeap);
 
 	Prajitura prajitura;
+
+	printf("\n\nDupa extragere: \n");
+
 	while (maxHeap.dimensiune != 0) {
 		extragere(&maxHeap, &prajitura);
 		afisarePrajitura(prajitura);
 		free(prajitura.denumire);
 	}
+
+	printf("\n");
 
 	for (int i = 0; i < 6; i++) {
 		afisarePrajitura(maxHeap.vector[i]);
