@@ -1,4 +1,5 @@
 // Assignment arbori oarecare sau ultimele 2 seminare
+// Assignment arbori oarecare sau ultimele 2 seminare
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<malloc.h>
@@ -61,8 +62,8 @@ void parcurgereInOrdine(Nod* radacina) {
 void parcurgerePostOrdine(Nod* radacina) {
 	if (radacina) {
 		parcurgerePostOrdine(radacina->copilStanga);
-		afisarePrajitura(radacina->prajitura);
 		parcurgerePostOrdine(radacina->copilDreapta);
+		afisarePrajitura(radacina->prajitura);
 	}
 }
 
@@ -110,7 +111,9 @@ void main() {
 	parcurgereInOrdine(radacina);
 	printf("\n\nParcurgere post ordine: \n");
 	parcurgerePostOrdine(radacina);
-	// De implementat pre-ordine
+	// De implementat pre-ordine PT CA ASTA NU E BUNA CRED!!!
+	printf("\n\nParcurgere pre ordine: \n");
+	parcurgerePreOrdine(radacina);
 
 	Prajitura prajituraCautata = cautarePrajitura(6, radacina);
 	printf("\n\nPrajitura cautata: \n");
