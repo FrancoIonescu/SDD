@@ -49,6 +49,21 @@ void citireVector(const char* numeFisier, int** vector, int* dimensiune)
 	 return produs;
  }
 
+void citireVectorDinFisier(FILE* file, int** vector, int* dimensiune) {
+	if (file != NULL) {
+		int capacitate = 1;
+		int numar;
+		*vector = (int*)malloc(capacitate * sizeof(int));
+		while (fscanf(file, "%d", &numar) == 1) {
+			*vector = (int*)realloc(*vector, sizeof(int) * capacitate);
+			(*vector)[capacitate - 1] = numar;
+			capacitate++;
+			(*dimensiune)++;
+		}
+		fclose(file);
+	}
+}
+
  void afisareProdus(struct Produs produs)
  {
 	 printf("\nProdusul %s are codul %d si pretul %.2f lei", produs.denumire, produs.id, produs.pret);
