@@ -39,6 +39,16 @@ void afisareMaxHeap(MaxHeap maxHeap) {
 	}
 }
 
+void dezalocare(MaxHeap* maxHeap) {
+	for (int i = 0; i < maxHeap->dimensiune; i++) {
+		Prajitura aux = maxHeap->vector[i];
+		free(aux.denumire);
+		aux.denumire = NULL;
+	}
+	free(maxHeap->vector);
+	maxHeap->vector = NULL;
+}
+
 void filtrare(MaxHeap maxHeap, int index) {
 	if (maxHeap.dimensiune > 0) {
 		int pozSt = 2 * index + 1;
