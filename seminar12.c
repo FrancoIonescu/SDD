@@ -142,6 +142,7 @@ void dezalocare(Nod** radacina) {
 		dezalocare(&(*radacina)->copilDreapta);
 		free((*radacina)->prajitura.denumire);
 		free(*radacina);
+		*radacina = NULL;
 	}
 }
 
@@ -165,8 +166,8 @@ void main() {
 	parcurgereInordine(radacina);
 	printf("\n Parcurgere postordine: ");
 	parcurgerePostordine(radacina);
-
-
+	int nrNoduri = calculInaltimeArbore(radacina);
+	printf("Nr noduri: %d", nrNoduri);
 
 	//Prajitura prajituraCautata = cautarePrajitura(6, radacina);
 	//printf("\n Prajitura cautata: ");
@@ -175,5 +176,3 @@ void main() {
 
 	dezalocare(&radacina);
 }
-
-// sa calculati nr de noduri frunza
