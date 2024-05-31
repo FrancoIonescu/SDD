@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<malloc.h>
+#include <string.h>
+#include <stdlib.h>
 
 typedef struct Masina Masina;
 typedef struct Nod Nod;
@@ -100,6 +102,24 @@ void coliziune(HashTable ht, int* nrColiziuni) {
 	}
 }
 
+void dezalocare(HashTable* ht) {
+	for (int i = 0; i < ht->dimensiune; i++) {
+		if (ht->vector[i]) {
+			Nod* copie = ht->vector[i];
+			while (copie) {
+				Nod* next = copie->next;
+				free(copie->inf.producator);
+				copie->inf.producator = NULL;
+				free(copie);
+				copie = next;
+			}
+		}
+	}
+	free(ht->vector);
+	ht->vector = NULL;
+	ht->dimensiune = 0;
+}
+
 void main() {
 
 	HashTable hashT = initHashTable(10);
@@ -113,6 +133,8 @@ void main() {
 
 	traversareHT(hashT);
 
+	printf("\n\n Dupa dezalocare: \n\n");
+	dezalocare(&hashT);
 	traversareHT(hashT);
 
 }
