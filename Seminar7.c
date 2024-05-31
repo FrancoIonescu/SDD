@@ -88,6 +88,18 @@ void traversareHT(HashTable hashT) {
 	}
 }
 
+void coliziune(HashTable ht, int* nrColiziuni) {
+	for (int i = 0; i < ht.dimensiune; i++) {
+		Nod* copie = ht.vector[i];
+		while (copie) {
+			if (copie->next != NULL) {
+				(*nrColiziuni)++;
+			}
+			copie = copie->next;
+		}
+	}
+}
+
 void main() {
 
 	HashTable hashT = initHashTable(10);
