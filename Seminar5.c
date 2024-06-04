@@ -117,6 +117,62 @@ void traversareListaCirculara(LDI lista)
 	} while (aux != lista.prim);
 }
 
+void stergere(LDI* ldi, const char* nume) {
+	if (ldi) {
+		Nod* copie = ldi->prim;
+		while (copie) {
+			if (strcmp(copie->info.nume, nume) == 0) {
+				if (copie == ldi->prim) {
+					ldi->prim = copie->next;
+					if (ldi->prim) {
+						ldi->prim->prev = NULL;
+					}
+					else {
+						ldi->ultim = NULL;
+					}
+				}
+				else if (copie == ldi->ultim) {
+					ldi->ultim = copie->prev;
+					ldi->ultim->next = NULL;
+				}
+				else {
+					copie->next->prev = copie->prev;
+					copie->prev->next = copie->next;
+				}
+				free(copie->info.nume);
+				copie->info.nume = NULL;
+				free(copie);
+				copie = NULL;
+				break;
+			}
+
+			copie = copie->next;
+		}
+	}
+}
+
+Student preluareStudentDinFisier(FILE* file) {
+	Student student;
+
+	char buffer[30];
+	fgets(buffer, 30, file);
+	char* nume = strtok(buffer, "\n");
+	student.nume = (char*)malloc(strlen(nume) + 1);
+	strcpy(student.nume, nume);
+	fgets(buffer, 30, file);
+	student.varsta = atoi(buffer);
+
+	return student;
+}
+
+void preluareStudentiInVector(FILE* file, Student** studenti, int* dimensiune) {
+	while (!feof(file)) {
+		*studenti = (Student*)realloc(*studenti, ((*dimensiune) + 1) * sizeof(Student));
+		(*studenti)[*dimensiune] = preluareStudentDinFisier(file);
+		(*dimensiune)++;
+	}
+}
+
 void main() {
 
 	LDI lista;
